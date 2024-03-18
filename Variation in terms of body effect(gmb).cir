@@ -1,0 +1,25 @@
+* D:\Anu\CMOS\Variation in terms of body effect(gmb).asc
+* Analysis - Analog Mosfet exercise
+* Here VDD= 5V, VG = 2.5V, VSB value is vary from (0 - 2)V
+
+* Effect is VSB increases VT and decreases ID
+
+M1 D G 0 B NMOS1
+VG G 0 2.5
+VDD D 0 5
+VSB 0 B
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\Anumol\Documents\LTspiceXVII\lib\cmp\standard.mos
+
+.model nmos1 nmos (vto=0.7V L=2u W=10u lambda=0.04 kp=50u gamma=0.7 )
+.dc VSB 0 2.5 0.1
+.meas ID FIND Id(M1) WHEN -V(B)=1V
+.meas gmb FIND d(Id(M1)) WHEN -V(B)=1V
+
+.backanno
+.end
+
+*By simulation
+* id: id(m1)=0.000318331 at 1\n
+*gmb: d(id(m1))=-0.000121022 at 1
